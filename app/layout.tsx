@@ -2,9 +2,20 @@ import "./globals.css";
 
 const SITE_NAME = "빠른 정보 웹";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="ko">
+      <head>
+        <meta
+          name="google-site-verification"
+          content="DL8u4t5f4WlydJSIW2RUrqM-j4Ie2w8N3I3Y2kahTDU"
+        />
+        <title>{SITE_NAME}</title>
+      </head>
       <body>
         <div className="header">
           <div className="container">
@@ -31,4 +42,3 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
-
