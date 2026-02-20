@@ -33,6 +33,7 @@ export default function RootLayout({
                 <a href="/privacy">Privacy</a>
                 <a href="/terms">Terms</a>
                 <a href="/contact">Contact</a>
+                <a href="/tools/leverage-calculator">레버리지 계산기</a>
               </div>
             </div>
           </div>
