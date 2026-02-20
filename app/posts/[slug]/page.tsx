@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import ReactMarkdown from "react-markdown";
 import { getPostBySlug, getAllPostsMeta } from "../../../lib/posts";
 
 function AdBox({ title }: { title: string }) {
@@ -15,50 +17,54 @@ function AdBox({ title }: { title: string }) {
   );
 }
 
-export default function HomePage() {
+export function generateStaticParams() {
   const posts = getAllPostsMeta();
+  return posts.map((p) => ({ slug: p.slug }));
+}
+
+export default function PostPage({ params }: { params: { slug: string } }) {
+  const post = getPostBySlug(params.slug);
+  if (!post) return notFound();
+
+  const { meta, content } = post;
 
   return (
     <div>
       <div className="hero">
-        <h1>검색으로 들어오는 정보 아카이브</h1>
-        <p>
-          이 사이트는 “정보(SEO) + 광고(AdSense)”로 수익을 만드는 구조야.
-          글을 누적하면 자동으로 트래픽이 쌓이고 광고 수익이 생김.
+        <p className="meta" style={{ marginBottom: 10 }}>
+          ← <Link href="/">Home</Link>
         </p>
+
+        <h1>{meta.title}</h1>
+        {meta.description ? <p>{meta.description}</p> : null}
+        {meta.date ? <p className="meta">업데이트: {meta.date}</p> : null}
+
+        {meta.tags?.length ? (
+          <div className="badges" style={{ marginTop: 12 }}>
+            {meta.tags.slice(0, 8).map((t: string) => (
+              <span key={t} className="badge">
+                #{t}
+              </span>
+            ))}
+          </div>
+        ) : null}
       </div>
 
       <div className="grid">
-        <div className="card">
-          <div className="badge">최신 글</div>
+        <div className="card article">
+          <ReactMarkdown>{content}</ReactMarkdown>
 
-          {posts.map((p) => (
-            <div key={p.slug} className="postItem">
-              <Link href={`/posts/${p.slug}`}>
-                <h2 className="postTitle">{p.title}</h2>
-              </Link>
-              {p.description ? <div className="meta">{p.description}</div> : null}
-              <div className="meta">{p.date}</div>
-              {p.tags?.length ? (
-                <div className="badges">
-                  {p.tags.slice(0, 6).map((t) => (
-                    <span key={t} className="badge">#{t}</span>
-                  ))}
-                </div>
-              ) : null}
-            </div>
-          ))}
+          <div style={{ marginTop: 20 }}>
+            <AdBox title="본문 하단 광고" />
+          </div>
         </div>
 
         <div style={{ display: "grid", gap: 14 }}>
           <AdBox title="상단 광고" />
           <div className="card">
-            <div className="badge">수익화 체크리스트</div>
+            <div className="badge">Tools</div>
             <div className="meta" style={{ marginTop: 10 }}>
-              1) 글 30개 누적<br />
-              2) AdSense 신청<br />
-              3) “OO 계산기” 페이지 추가(광고 단가↑)<br />
-              4) 내부링크(관련글 연결)
+              • <a href="/tools/leverage-calculator">레버리지 계산기</a>
             </div>
           </div>
           <AdBox title="사이드 광고" />
