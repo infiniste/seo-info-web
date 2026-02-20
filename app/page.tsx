@@ -55,6 +55,9 @@ export default function HomePage() {
           <div className="card">
             <div className="badge">수익화 체크리스트</div>
             <div className="meta" style={{ marginTop: 10 }}>
+  • <a href="/tools/leverage-calculator">레버리지 계산기 바로가기</a>
+</div>
+            <div className="meta" style={{ marginTop: 10 }}>
               1) 글 30개 누적<br />
               2) AdSense 신청<br />
               3) “OO 계산기” 페이지 추가(광고 단가↑)<br />
