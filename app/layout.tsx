@@ -24,10 +24,15 @@ export default function RootLayout({
                 <span className="brandDot" />
                 {SITE_NAME}
               </a>
+
+              {/* ✅ 여기 */}
               <div className="navLinks">
                 <a href="/">Home</a>
                 <a href="/rss.xml">RSS</a>
                 <a href="/sitemap.xml">Sitemap</a>
+                <a href="/privacy">Privacy</a>
+                <a href="/terms">Terms</a>
+                <a href="/contact">Contact</a>
               </div>
             </div>
           </div>
