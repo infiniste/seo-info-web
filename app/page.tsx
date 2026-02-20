@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { getAllPostsMeta } from "../lib/posts";
 
 function AdBox({ title }: { title: string }) {
@@ -34,15 +33,19 @@ export default function HomePage() {
 
           {posts.map((p) => (
             <div key={p.slug} className="postItem">
-              <Link href={`/posts/${p.slug}`}>
-                <h2 className="postTitle">{p.title}</h2>
-              </Link>
+              <a href={`/posts/${p.slug}`} className="postTitleLink">
+                {p.title}
+              </a>
+
               {p.description ? <div className="meta">{p.description}</div> : null}
               <div className="meta">{p.date}</div>
+
               {p.tags?.length ? (
                 <div className="badges">
                   {p.tags.slice(0, 6).map((t) => (
-                    <span key={t} className="badge">#{t}</span>
+                    <span key={t} className="badge">
+                      #{t}
+                    </span>
                   ))}
                 </div>
               ) : null}
@@ -52,11 +55,14 @@ export default function HomePage() {
 
         <div style={{ display: "grid", gap: 14 }}>
           <AdBox title="상단 광고" />
+
           <div className="card">
             <div className="badge">수익화 체크리스트</div>
+
             <div className="meta" style={{ marginTop: 10 }}>
-  • <a href="/tools/leverage-calculator">레버리지 계산기 바로가기</a>
-</div>
+              • <a href="/tools/leverage-calculator">레버리지 계산기 바로가기</a>
+            </div>
+
             <div className="meta" style={{ marginTop: 10 }}>
               1) 글 30개 누적<br />
               2) AdSense 신청<br />
@@ -64,9 +70,11 @@ export default function HomePage() {
               4) 내부링크(관련글 연결)
             </div>
           </div>
+
           <AdBox title="사이드 광고" />
         </div>
       </div>
     </div>
   );
 }
+
